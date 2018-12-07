@@ -1,0 +1,37 @@
+$generalFont: Roboto, "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial,
+  "Lucida Grande", sans-serif;
+$bgColor: #fafafa;
+.container {
+  background: $bgColor;
+  -webkit-box-shadow: 0px 5px 10px silver;
+          box-shadow: 0px 5px 10px silver;
+  border-radius: 25px;
+  height: 500px;
+  width: 50%;
+  margin: 5% auto;
+}
+.app {
+  border:1px solid $bgColor;
+  width: 70%;
+  margin: auto;
+
+  &__header {
+    margin-top: 30px;
+    border: 1px solid black;
+  }
+  &__label {
+    font-family: $generalFont;
+    font-size: 16px;
+    width: 00px;
+    border:1px solid red;
+  }
+  &__input {
+    border: 1px solid;
+    background: $bgColor;
+    padding: 5px;
+    font-size: 20px;
+    display: block;
+    -webkit-box-sizing: border-box;
+            box-sizing: border-box;
+  }
+}
