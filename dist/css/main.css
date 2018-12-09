@@ -44,3 +44,23 @@
   list-style: none; }
   .DropDown__items:hover {
     background: #f5f5f5; }
+
+.selected {
+  padding: 10px; }
+  .selected__items {
+    display: inline-block;
+    margin: 5px;
+    padding: 7px 10px 7px 10px;
+    background: silver;
+    border-radius: 15px; }
+  .selected__crossIcon {
+    box-sizing: border-box;
+    display: inline-block;
+    cursor: pointer;
+    margin-left: 5px;
+    height: 15px;
+    width: 15px;
+    position: relative;
+    top: 2px;
+    background-size: 100%;
+    background: url("../img/delete-button.svg"); }
