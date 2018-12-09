@@ -64,10 +64,10 @@
       createSelectedBlocks.innerHTML = e.target.dataset.value;
 
       const crossIcon = document.createElement('span');
-      crossIcon.innerHTML = 
       crossIcon.classList.add('selected__crossIcon');
 
       createSelectedBlocks.appendChild(crossIcon);
+
       selectedItems.appendChild(createSelectedBlocks);
       dropDown.innerHTML = "";
     }
