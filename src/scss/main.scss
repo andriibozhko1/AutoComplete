@@ -67,11 +67,11 @@ $bgColor: #fafafa;
     padding: 7px 10px 7px 10px;
     background: silver;
     border-radius: 15px;
+    cursor: pointer;
   }
   &__crossIcon {
     box-sizing: border-box;
-    display: inline-block;
-    cursor: pointer;
+    display: inline-block;    
     margin-left: 5px;
     height: 15px;
     width: 15px;

@@ -25,12 +25,6 @@
     })
   };
 
-  document.body.addEventListener("click", function(e) {
-    if (e.target.className !== "app__input" && e.target.className !== "DropDown__items") {
-      dropDown.innerHTML = "";
-    }
-  });
-
   const renderList = function(list) {
     dropDown.innerHTML = "";
     const createList = document.createElement("ul");
@@ -57,24 +51,45 @@
     renderList(filteredList);
   };
 
-  app.addEventListener('click', function(e) {
-    if(e.target.className === 'DropDown__items') {
-      const createSelectedBlocks = document.createElement('span');
-      createSelectedBlocks.classList.add('selected__items');
-      createSelectedBlocks.innerHTML = e.target.dataset.value;
+  const createSelectedBlocks = function (text) {
+    const selectedBlocks = document.createElement('span');
+      selectedBlocks.classList.add('selected__items');
+      selectedBlocks.innerHTML = text;
 
       const crossIcon = document.createElement('span');
       crossIcon.classList.add('selected__crossIcon');
 
-      createSelectedBlocks.appendChild(crossIcon);
+      selectedBlocks.appendChild(crossIcon);
+      selectedItems.appendChild(selectedBlocks);
 
-      selectedItems.appendChild(createSelectedBlocks);
+      inputText.value = '';
+      dropDown.innerHTML = '';
+  }
+
+
+  document.body.addEventListener("click", function(e) {
+    if (e.target.className !== "app__input" && e.target.className !== "DropDown__items") {
       dropDown.innerHTML = "";
     }
   });
+
+  app.addEventListener('click', function(e) {
+    if(e.target.className === 'DropDown__items') {
+      createSelectedBlocks(e.target.dataset.value);
+    }
+  });
+
   app.addEventListener('click', function(e) {
     if(e.target.className === 'selected__crossIcon') {
       e.target.parentElement.remove();
+    }
+  })
+  
+  inputText.addEventListener('keydown', function(e) {
+    if(e.keyCode === 13) {
+      if(inputText.value !== '') {
+        createSelectedBlocks(inputText.value);
+      }
     }
   })
 
