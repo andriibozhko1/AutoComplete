@@ -22,38 +22,40 @@
     }
   };
 
-  inputText.addEventListener('keydown', function(e) {
-    const DropDownItems = document.querySelectorAll('.DropDown__items');
+  inputText.addEventListener("keydown", function(e) {
+    const DropDownItems = document.querySelectorAll(".DropDown__items");
     let tempItems;
-    
-    if(e.keyCode === 40) {
-       if(counter >= DropDownItems.length - 1){
-         counter = - 1;
-       }
-       tempItems = counter;
-       if(tempItems === -1) {
-        tempItems = DropDownItems.length - 1;
-       }
-       counter++;
-       DropDownItems[counter].classList.add('test');
-       DropDownItems[tempItems].classList.remove('test');
-       inputText.value = DropDownItems[counter].dataset.value;
-    } else if(e.keyCode === 38) {
-      if(counter <= 0){
-        counter = DropDownItems.length;
-      }
-      tempItems = counter;
-      if(tempItems === DropDownItems.length) {
-        tempItems = 0;
-      }
-      counter--;
-      DropDownItems[counter].classList.add('test');
-      DropDownItems[tempItems].classList.remove('test');
-      inputText.value = DropDownItems[counter].dataset.value;
-    } else if(e.keyCode === 13) {
+
+    if (e.keyCode === 40) {
+        if (counter >= DropDownItems.length - 1) {
+          counter = -1;
+        }
+
+        tempItems = counter;
+        if (tempItems === -1) {
+          tempItems = DropDownItems.length - 1;
+        }
+        counter++;
+        DropDownItems[counter].classList.add("test");
+        DropDownItems[tempItems].classList.remove("test");
+        inputText.value = DropDownItems[counter].dataset.value;
+    } else if (e.keyCode === 38) {
+        if (counter <= 0) {
+          counter = DropDownItems.length;
+        }
+
+        tempItems = counter;
+        if (tempItems === DropDownItems.length) {
+          tempItems = 0;
+        }
+        counter--;
+        DropDownItems[counter].classList.add("test");
+        DropDownItems[tempItems].classList.remove("test");
+        inputText.value = DropDownItems[counter].dataset.value;
+    } else if (e.keyCode === 13) {
       createSelectedBlocks(inputText.value);
     }
-  })
+  });
 
   const filterList = function(arr, inputValue) {
     const filteredValue =
@@ -88,21 +90,24 @@
   });
 
   inputText.addEventListener("keyup", function(e) {
-      if(e.keyCode !== 38 && e.keyCode !== 40 && e.keyCode !== 13) {
-        filterList(listItems, inputText.value);
-      }
+    if (e.keyCode !== 38 && e.keyCode !== 40 && e.keyCode !== 13) {
+      filterList(listItems, inputText.value);
+    }
   });
 
-  document.body.addEventListener("click", (e) => {
-    if (e.target.className !== "app__input" && e.target.className !== "DropDown__items"){
+  document.body.addEventListener("click", e => {
+    if (
+      e.target.className !== "app__input" &&
+      e.target.className !== "DropDown__items"
+    ) {
       dropDown.innerHTML = "";
-    }else if(e.target.className === "DropDown__items") {
+    } else if (e.target.className === "DropDown__items") {
       createSelectedBlocks(e.target.dataset.value);
     }
   });
-  
-  app.addEventListener('click', function(e) {
-    if(e.target.classList == 'selected__crossIcon') {
+
+  app.addEventListener("click", function(e) {
+    if (e.target.classList == "selected__crossIcon") {
       e.target.parentElement.remove();
     }
   });
