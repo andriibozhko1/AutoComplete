@@ -22,11 +22,10 @@
     }
   };
 
-  inputText.addEventListener("keydown", function(e) {
-    const DropDownItems = document.querySelectorAll(".DropDown__items");
+  const moveItems = function(DropDownItems,keys) {
     let tempItems;
-
-    if (e.keyCode === 40) {
+    switch(keys) {
+      case 40:
         if (counter >= DropDownItems.length - 1) {
           counter = -1;
         }
@@ -39,7 +38,8 @@
         DropDownItems[counter].classList.add("test");
         DropDownItems[tempItems].classList.remove("test");
         inputText.value = DropDownItems[counter].dataset.value;
-    } else if (e.keyCode === 38) {
+      break;
+      case 38: 
         if (counter <= 0) {
           counter = DropDownItems.length;
         }
@@ -52,9 +52,16 @@
         DropDownItems[counter].classList.add("test");
         DropDownItems[tempItems].classList.remove("test");
         inputText.value = DropDownItems[counter].dataset.value;
-    } else if (e.keyCode === 13) {
-      createSelectedBlocks(inputText.value);
+      break;
+      case 13:
+        createSelectedBlocks(inputText.value);
+      break;
     }
+  }
+
+  inputText.addEventListener("keydown", function(e) {
+    const DropDownItems = document.querySelectorAll(".DropDown__items");
+    moveItems(DropDownItems,e.keyCode);
   });
 
   const filterList = function(arr, inputValue) {
