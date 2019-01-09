@@ -4,6 +4,7 @@
   const inputText = document.querySelector(".app__input");
   const app = document.querySelector(".app");
   const selectedItems = document.querySelector(".selected");
+
   const debounce = function(fn, ms) {
     let timeOut;
 
@@ -69,15 +70,36 @@
   let counter = new MakeCounter();
   const moveItems = function(keys) {
     const allItems = app.querySelectorAll('.DropDown__items');
-    
+    const itemsLength = allItems.length - 1;
     switch (keys) {
       case 40:
+        if(counter.count >= itemsLength){
+          counter.count = -1;
+          counter.tempCount = itemsLength;
+        }
+        counter.tempCount = counter.count;
+        if(counter.tempCount < 0) {
+          counter.tempCount = itemsLength;
+        }
         counter.up();
-        console.log(counter.count);
+        inputText.value = allItems[counter.count].dataset.value;
+        allItems[counter.count].classList.add('test');
+        allItems[counter.tempCount].classList.remove('test');
+        console.log(counter.count,counter.tempCount);
       break;
       case 38:
+        if(counter.count <= 0) {
+          counter.count = itemsLength + 1;        
+        }        
+        counter.tempCount = counter.count;
+        if(counter.tempCount > itemsLength) {
+          counter.tempCount = 0;
+        }
         counter.down();
-        console.log(counter.count);
+        inputText.value = allItems[counter.count].dataset.value;
+        allItems[counter.count].classList.add('test');        
+        allItems[counter.tempCount].classList.remove('test');
+        console.log(counter.count,counter.tempCount);
       break;
     }
   }
@@ -91,6 +113,7 @@
         createSelectedBlocks(inputText.value);
       }
     }
+    moveItems(e.keyCode)
   });
 
   app.addEventListener("click", function(e) {
@@ -101,4 +124,9 @@
       e.target.parentElement.remove();
     }
   });
+  document.body.addEventListener('click', function(e) {
+    if(!e.target.classList.contains('DropDown__items') && e.target !== inputText) {
+      dropDown.innerHTML = '';
+    }
+  })
 })();
