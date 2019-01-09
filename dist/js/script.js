@@ -4,7 +4,7 @@
   const inputText = document.querySelector(".app__input");
   const app = document.querySelector(".app");
   const selectedItems = document.querySelector(".selected");
-
+  let dropDownLength;
   const debounce = function(fn, ms) {
     let timeOut;
 
@@ -29,6 +29,22 @@
       createListItems.innerHTML = items;
       createList.appendChild(createListItems);
     }
+    dropDownLength = arr.length;
+  };
+
+  const createSelectedBlocks = function(text) {
+    const selectedBlocks = document.createElement("span");
+    selectedBlocks.classList.add("selected__items");
+    selectedBlocks.innerHTML = text;
+
+    const crossIcon = document.createElement("span");
+    crossIcon.classList.add("selected__crossIcon");
+
+    selectedBlocks.appendChild(crossIcon);
+    selectedItems.appendChild(selectedBlocks);
+
+    inputText.value = "";
+    dropDown.innerHTML = "";
   };
 
   let transformValue = function(inputValue) {
@@ -45,9 +61,47 @@
     }
     renderItems(filteredItems);
   };
-
   transformValue = debounce(transformValue, 500);
+
+  const MakeCounter = function() {
+    this.count = 0;
+    this.tempCount;
+    this.up = () => this.count++;
+    this.down = () => this.count--;
+  };
+  let counter = new MakeCounter();
+
+  inputText.addEventListener("keydown", function(e) {
+    let regForValue = /^([a-zа-яё]+|\d+)$/i;
+    if (e.keyCode !== 13 && e.keyCode !== 40 && e.keyCode !== 38) {
+      transformValue(inputText.value);
+    }
+    if (e.keyCode === 13) {
+      if (regForValue.test(inputText.value)) {
+        createSelectedBlocks(inputText.value);
+      }
+    }
+    moveItems(e);
+  });
+
   inputText.addEventListener("keyup", function(e) {
-    transformValue(inputText.value);
+    let regForValue = /^([a-zа-яё]+|\d+)$/i;
+    if (e.keyCode !== 13 && e.keyCode !== 40 && e.keyCode !== 38) {
+      transformValue(inputText.value);
+    }
+    if (e.keyCode === 13) {
+      if (regForValue.test(inputText.value)) {
+        createSelectedBlocks(inputText.value);
+      }
+    }
+  });
+
+  app.addEventListener("click", function(e) {
+    if (e.target.classList.contains("DropDown__items")) {
+      createSelectedBlocks(e.target.dataset.value);
+    }
+    if (e.target.classList.contains("selected__crossIcon")) {
+      e.target.parentElement.remove();
+    }
   });
 })();
