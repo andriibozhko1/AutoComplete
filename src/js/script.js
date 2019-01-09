@@ -46,8 +46,7 @@
   };
 
   let transformValue = function(inputValue) {
-    const transformedValue =
-      inputValue.charAt(0).toUpperCase() + inputValue.slice(1);
+    const transformedValue = inputValue.charAt(0).toUpperCase() + inputValue.slice(1);
     filterList(transformedValue);
   };
   const filterList = function(value) {
@@ -62,26 +61,26 @@
   transformValue = debounce(transformValue, 500);
 
   const MakeCounter = function() {
-    this.count = 0;
+    this.count = -1;
     this.tempCount;
     this.up = () => this.count++;
     this.down = () => this.count--;
   };
   let counter = new MakeCounter();
-
-  inputText.addEventListener("keydown", function(e) {
-    let regForValue = /^([a-zа-яё]+|\d+)$/i;
-    if (e.keyCode !== 13 && e.keyCode !== 40 && e.keyCode !== 38) {
-      transformValue(inputText.value);
+  const moveItems = function(keys) {
+    const allItems = app.querySelectorAll('.DropDown__items');
+    
+    switch (keys) {
+      case 40:
+        counter.up();
+        console.log(counter.count);
+      break;
+      case 38:
+        counter.down();
+        console.log(counter.count);
+      break;
     }
-    if (e.keyCode === 13) {
-      if (regForValue.test(inputText.value)) {
-        createSelectedBlocks(inputText.value);
-      }
-    }
-    moveItems(e);
-  });
-
+  }
   inputText.addEventListener("keyup", function(e) {
     let regForValue = /^([a-zа-яё]+|\d+)$/i;
     if (e.keyCode !== 13 && e.keyCode !== 40 && e.keyCode !== 38) {
