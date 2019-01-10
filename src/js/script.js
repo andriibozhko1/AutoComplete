@@ -53,12 +53,10 @@
   const filterList = function(value) {
     const filteredItems = [];
     for (let items of listItems) {
-      if (items.includes(value)) {
-        console.log(filteredItems,value);
+      if (items.includes(value)) {        
         filteredItems.push(items);
       }
-    }
-    console.log(filteredItems,value);
+    }    
     renderItems(filteredItems);
   };
   transformValue = debounce(transformValue, 500);
@@ -86,8 +84,7 @@
         counter.up();
         inputText.value = allItems[counter.count].dataset.value;
         allItems[counter.count].classList.add('test');
-        allItems[counter.tempCount].classList.remove('test');
-        console.log(counter.count,counter.tempCount);
+        allItems[counter.tempCount].classList.remove('test');        
       break;
       case 38:
         if(counter.count <= 0) {
@@ -101,7 +98,6 @@
         inputText.value = allItems[counter.count].dataset.value;
         allItems[counter.count].classList.add('test');        
         allItems[counter.tempCount].classList.remove('test');
-        console.log(counter.count,counter.tempCount);
       break;
     }
   }
