@@ -54,9 +54,11 @@
     const filteredItems = [];
     for (let items of listItems) {
       if (items.includes(value)) {
+        console.log(filteredItems,value);
         filteredItems.push(items);
       }
     }
+    console.log(filteredItems,value);
     renderItems(filteredItems);
   };
   transformValue = debounce(transformValue, 500);
@@ -109,9 +111,10 @@
       transformValue(inputText.value);
     }
     if (e.keyCode === 13) {
-      if (regForValue.test(inputText.value)) {
-        createSelectedBlocks(inputText.value);
-      }
+      dropDown.innerHTML = '';
+      if (regForValue.test(inputText.value)) {        
+        createSelectedBlocks(inputText.value);                       
+      }      
     }
     moveItems(e.keyCode)
   });
